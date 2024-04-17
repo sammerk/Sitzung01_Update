@@ -1,0 +1,275 @@
+---
+title: 'AQUA-d Qualifikationsprogramm'
+subtitle: "<br>Sitzung 1:<br>Erhebungen in Schulen 🏫<br>Update 🔄"
+author: 'Alexander Skulmowski & Samuel Merk'
+format: 
+  revealjs:
+    auto-stretch: true
+    self-contained: true
+    controls: true
+    slide-number: c/t
+    logo: img/PH_logo.png
+    theme: [simple, css/custom.scss]
+    fullscreen: true
+    pdf-separate-fragments: true
+    pdfexport: true
+bibliography: references.bib
+csl: apa.csl
+editor_options: 
+  chunk_output_type: console
+lightbox: true
+filters:
+  - timer
+  - webr
+---
+
+```{r hidden chunk which creates template stuff}
+#| echo: false
+
+## in terminal ########
+# quarto install extension quarto-ext/fontawesome
+# quarto install extension schochastics/academicons
+# test
+
+########################
+library(fontawesome)
+library(tidyverse)
+library(readxl)
+library(ggalt)
+library(hrbrthemes)
+library(reactable)
+
+# Change css to PH green
+if(!dir.exists("css"))
+dir.create("css")
+fileConn<-file("css/custom.scss")
+fileStyle<-file("css/custom.scss")
+writeLines(c("/*-- scss:defaults --*/",
+             "$link-color: #8cd000 !default;",
+             # line-height muss im parent der font-size gesetzt werden,
+             # daher hier und nicht inline im YAML header
+             ".reveal h1 {line-height: .8 !important;} ", 
+             # make citations a bit smaller
+             ".citation {font-size: .8em; color: #8cd000;}",
+             ".imp {color: #8cd000;}",
+             ".imp2 {color: #50B32E;}",
+             ".cent2 h2 {text-align: center;}",
+             ".cent3 h3 {text-align: center;}",
+             ".cent1 h1 {text-align: center;}",
+             ".cent_text {text-align: center;}",
+             ".reveal h2 {color: #8cd000 !important;}"),
+           fileConn)
+close(fileConn)
+close(fileStyle)
+```
+
+## Erhebungen in Schulen {.center}
+### Datenschutzrechtliche und ethische Voraussetzungen
+
+## Update
+:::: {.columns}
+
+::: {.column width='40%'}
+#### Kleine Runden 🧑‍🧑‍🧒‍🧒
+* 4mal 4er Gruppen
+* Kleine Impulsfragen
+:::
+
+::: {.column width='60%'}
+#### Große Runde 🗣️
+* Interessantes aus den kleinen Runden
+* News aus 
+    * Koordination und
+    * Leitung
+:::
+
+::::
+
+::: {.notes}
+* Sport (Halle, Badische Meile 5. 5., Baden Marathon 15.09.)
+* Publikationen auf Homepage, auch Tagungsbeiträge
+* Abordnungen
+* 
+
+:::
+
+
+## Kleine Runde 1
+::: {style="font-size: .36em;"}
+```{r}
+#| echo: false
+#| results: asis
+library(tidyverse)
+library(reactable)
+library(countdown)
+# Wer ist potentiell da?
+data_Doks <- 
+  tibble(Doks = c("Carolin", "Erika", "Fabian", "Florian", "Gloria", "Julian", 
+                  "Lena", "Liene", "Kay", "Martin", "Maximilian", "Patricia", 
+                  "Theresa", "Valerie"),
+)
+
+# Wer fehlt?
+es_fehlen <- c("", "", "")
+
+# Wer ist de facto da?
+data_Doks_anwesend <- 
+  data_Doks |> 
+  filter(!Doks %in% es_fehlen)
+
+# Fragen für kleine Runden
+Fragen_kleine_Runden <- 
+  c("Wenn du mit einer »wiss. Person« - lebendig oder tot, real oder fiktiv - ein Abendessen haben könntest, wer wäre das und warum?",
+    "Du bekommst 2 Mio. von der DfG für ein Forschungsprojekt deiner Wahl. Was wäre die Forschungsfrage und die Anlage des Projekts?",
+    "Welcher Teil deiner Arbeit hat die letzen Wochen richtig Spaß gemacht?",
+    "Welcher Teil deiner Arbeit hat die letzen Wochen richtig genervt?",
+    "Was hättest du gerne zum Ende des Semesters bzgl. deiner Promotion erledigt?",
+    "Welchen AHA-Moment hattest du in den letzten Wochen?",
+    "An was hast du dir die letzten Wochen die Zähne ausgebissen?",
+    "Wer unterstützt dich in deiner Arbeit an deiner Diss. derzeit?",
+    "Welche nicht Diss-relevante Arbeit hast derzeit?",
+    "Welches akademische Werk hat dich zuletzt stark beeindruckt?",
+    "Von welchem akademischen Werk warst du zuletzt sehr enttäuscht?",
+    "Welches war das unerwartetste Ergebnis, das du bisher in deiner Forschung erzielt hast?",
+    "Welches war das enttäuschendeste Ergebnis, das du bisher in deiner Forschung erlebt hast?",
+    "Wie gelingt es dir derzeit Privatleben und Arbeit zu balancieren?",
+    "Welche Software nutzt du warum am häufigsten, welche am liebsten?",
+    "Wo hast du zuletzt »richtig ins Klo gegriffen«?",
+    "Bzgl. welcher Frage hast du aufgrund deiner wiss. Tätigkeit deine Meinugn geändert?",
+    "Du darfst einen Punkt aus deiner Dienstaufgabenbeschreibung löschen, welcher wäre das?",
+    "Du darfst einen Punkt zu deiner Dienstaufgabenbeschreibung hinzufügen, welcher wäre das?",
+    "Welches Tools erleichtert dir gerade den Alltag?",
+    "Welches Tools treibt dich gerade in den Wahnsinn?")
+
+# Einteilung in Gruppen für »kleine Runde 1«
+data_Doks_Gruppen <- 
+  data_Doks_anwesend |> 
+  # wiederhole den vektor 1,2,3,4 vier mal und schneide ihn dann 
+  # bei der Länge der Anzahl der Anwesenden/des Datensatzes (n()) ab
+  mutate(Gr1 = rep(c("🐬", "🐑", "🐕", "🐴"), 4)[1:n()],
+  # bilde andere Gruppierungen durch Randomisierung von Gruppe_R1      
+         Gr2 = sample(Gr1),
+         Gr3 = sample(Gr1),
+         Gr4 = sample(Gr1))
+
+data_Doks_Gruppen |> 
+  select(Doks, Gr1) |> 
+  mutate(Frage = Fragen_kleine_Runden[1:n()]) |> 
+  # Reihenfolge innerhalb Gruppe randomisieren
+  group_by(Gr1) |> 
+  sample_frac(1) |> 
+  # Erste Person zu Zeitwächter:in machen
+  mutate(n = 1:n(),
+         Gr1 = ifelse(n == 1, paste(Gr1, " + ⏰"), Gr1)) |> 
+  ungroup()  |> 
+  reactable(defaultSorted = list(Doks = "asc"),
+            searchable = TRUE, 
+            defaultPageSize = nrow(data_Doks_anwesend),
+            columns = list(
+              Frage = colDef(minWidth = 900))
+  )
+
+```
+:::
+
+`r countdown(minutes = 8, seconds = 0, right = "40%", bottom = "-2%",
+             color_border = "#8cd000", color_running_background = "#8cd00070")`
+
+## Kleine Runde 2
+::: {style="font-size: .36em;"}
+```{r}
+#| echo: false
+#| results: asis
+
+data_Doks_Gruppen |> 
+  select(Doks, Gr2) |> 
+  mutate(Frage = Fragen_kleine_Runden[2:(n()+1)]) |> 
+  # Reihenfolge innerhalb Gruppe randomisieren
+  group_by(Gr2) |> 
+  sample_frac(1) |> 
+  # Erste Person zu Zeitwächter:in machen
+  mutate(n = 1:n(),
+         Gr2 = ifelse(n == 1, paste(Gr2, " + ⏰"), Gr2)) |> 
+  ungroup()  |> 
+  reactable(defaultSorted = list(Doks = "asc"),
+            searchable = TRUE, 
+            defaultPageSize = nrow(data_Doks_anwesend),
+            columns = list(
+              Frage = colDef(minWidth = 900))
+  )
+
+```
+:::
+
+`r countdown(minutes = 8, seconds = 0, right = "40%", bottom = "-2%",
+             color_border = "#8cd000", color_running_background = "#8cd00070")`
+             
+## Kleine Runde 3
+::: {style="font-size: .36em;"}
+```{r}
+#| echo: false
+#| results: asis
+
+data_Doks_Gruppen |> 
+  select(Doks, Gr3) |> 
+  mutate(Frage = Fragen_kleine_Runden[3:(n()+2)]) |> 
+  # Reihenfolge innerhalb Gruppe randomisieren
+  group_by(Gr3) |> 
+  sample_frac(1) |> 
+  # Erste Person zu Zeitwächter:in machen
+  mutate(n = 1:n(),
+         Gr3 = ifelse(n == 1, paste(Gr3, " + ⏰"), Gr3)) |> 
+  ungroup()  |> 
+  reactable(defaultSorted = list(Doks = "asc"),
+            searchable = TRUE, 
+            defaultPageSize = nrow(data_Doks_anwesend),
+            columns = list(
+              Frage = colDef(minWidth = 900))
+  )
+
+```
+:::
+
+`r countdown(minutes = 8, seconds = 0, right = "40%", bottom = "-2%",
+             color_border = "#8cd000", color_running_background = "#8cd00070")`             
+
+
+## Kleine Runde 4
+::: {style="font-size: .36em;"}
+```{r}
+#| echo: false
+#| results: asis
+
+data_Doks_Gruppen |> 
+  select(Doks, Gr4) |> 
+  # Fragespalte »eins hochschieben«
+  mutate(Frage = Fragen_kleine_Runden[4:(n()+3)]) |> 
+  # Reihenfolge innerhalb Gruppe randomisieren
+  group_by(Gr4) |> 
+  sample_frac(1) |> 
+  # Erste Person zu Zeitwächter:in machen
+  mutate(n = 1:n(),
+         Gr4 = ifelse(n == 1, paste(Gr4, " + ⏰"), Gr4)) |> 
+  ungroup()  |> 
+  reactable(defaultSorted = list(Doks = "asc"),
+            searchable = TRUE, 
+            defaultPageSize = nrow(data_Doks_anwesend),
+            columns = list(
+              Frage = colDef(minWidth = 900))
+  )
+
+```
+:::
+
+`r countdown(minutes = 8, seconds = 0, right = "40%", bottom = "-2%",
+             color_border = "#8cd000", color_running_background = "#8cd00070")`
+
+## Große Runde
+### Nachlese kleine Runden
+```{webr-r}
+fit = lm(mpg ~ am, data = mtcars)
+
+summary(fit)
+```
+
+## Referenzen
