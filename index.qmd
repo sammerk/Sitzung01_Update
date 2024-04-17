@@ -64,6 +64,9 @@ close(fileStyle)
 
 ## Erhebungen in Schulen {.center}
 ### Datenschutzrechtliche und ethische Voraussetzungen
+* Alexander Skulmowski hat sich krank 🤕 gemeldet
+* Als erster Ersatz
+    * Wisdom of the Crowd 🐠🐬🐟🐡
 
 ## Update
 :::: {.columns}
@@ -145,7 +148,7 @@ data_Doks_Gruppen <-
   data_Doks_anwesend |> 
   # wiederhole den vektor 1,2,3,4 vier mal und schneide ihn dann 
   # bei der Länge der Anzahl der Anwesenden/des Datensatzes (n()) ab
-  mutate(Gr1 = rep(c("🐬", "🐑", "🐕", "🐴"), 4)[1:n()],
+  mutate(Gr1 = rep(c("🐆", "🐇", "🐢", "🐛"), 4)[1:n()],
   # bilde andere Gruppierungen durch Randomisierung von Gruppe_R1      
          Gr2 = sample(Gr1),
          Gr3 = sample(Gr1),
