@@ -263,12 +263,24 @@ data_Doks_Gruppen |>
 `r countdown(minutes = 8, seconds = 0, right = "40%", bottom = "-2%",
              color_border = "#8cd000", color_running_background = "#8cd00070")`
 
-## Große Runde
-### Nachlese kleine Runden
+## Nachlese kleine Runden {.scrollable}
+::: {#big-text style="font-size: 50%"}
 ```{webr-r}
-fit = lm(mpg ~ am, data = mtcars)
+# Wer ist potentiell da?
+data_Doks_anwesend <-
+  c("Carolin", "Erika", "Fabian", "Florian", "Gloria", "Julian", "Lena", "Liene", 
+    "Kay", "Martin", "Maximilian", "Patricia", "Theresa", "Valerie")
 
-summary(fit)
+# Lose Frage und Befragte:n aus
+paste0("Liebe:r ", 
+      sample(data_Doks_anwesend, 1), 
+      "! Welche Antwort auf welche Frage ",
+      sample(c("fandest du besonders lustig?",
+               "sollten Nadine und Samuel auf keinen Fall hören?",
+               "hat dich warum nachdenklich gemacht?",
+               "hat dir Mut gemacht?",
+               "fandest du prollig?"), 1))
+
 ```
-
+:::
 ## Referenzen
