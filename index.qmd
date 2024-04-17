@@ -68,6 +68,11 @@ close(fileStyle)
 * Als erster Ersatz
     * Wisdom of the Crowd 🐠🐬🐟🐡
 
+
+::: footer
+Folien unter bit.ly/merk211
+:::
+
 ## Update
 :::: {.columns}
 
@@ -87,12 +92,16 @@ close(fileStyle)
 
 ::::
 
+
+
+::: footer
+Folien unter bit.ly/merk211
+:::
+
 ::: {.notes}
 * Sport (Halle, Badische Meile 5. 5., Baden Marathon 15.09.)
 * Publikationen auf Homepage, auch Tagungsbeiträge
 * Abordnungen
-* 
-
 :::
 
 
@@ -108,11 +117,11 @@ library(countdown)
 data_Doks <- 
   tibble(Doks = c("Carolin", "Erika", "Fabian", "Florian", "Gloria", "Julian", 
                   "Lena", "Liene", "Kay", "Martin", "Maximilian", "Patricia", 
-                  "Theresa", "Valerie"),
+                  "Theresa", "Valerie", "Anni", "Fiona", "Karl"),
 )
 
 # Wer fehlt?
-es_fehlen <- c("", "", "")
+es_fehlen <- c("Gloria", "Lena", "")
 
 # Wer ist de facto da?
 data_Doks_anwesend <- 
@@ -271,8 +280,9 @@ data_Doks_Gruppen |>
 ```{webr-r}
 # Wer ist potentiell da?
 data_Doks_anwesend <-
-  c("Carolin", "Erika", "Fabian", "Florian", "Gloria", "Julian", "Lena", "Liene", 
-    "Kay", "Martin", "Maximilian", "Patricia", "Theresa", "Valerie")
+  c("Carolin", "Erika", "Fabian", "Florian", "Julian", 
+    "Liene", "Kay", "Martin", "Maximilian", "Patricia", 
+    "Theresa", "Valerie", "Anni", "Fiona", "Karl")
 
 # Lose Frage und Befragte:n aus
 paste0("Liebe:r ", 
